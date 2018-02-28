@@ -14,10 +14,11 @@ public class TestListener implements ITestListener {
         * Вот этот блок кода можно применить что бы получить аннотации над методом.
         */
         // Class myClass = SampleEmptyTest.class; заменяем на обращение к ITestResult - TestNG в нем хранит информацию о методах и результатах
-        Class myClass = result.getClass();
+        Class myClass = result.getTestClass().getRealClass();
         Method method = null; //
         try {
-            method = myClass.getMethod("sampleTest"); // спрашиваем Java: "Как называется, метод внутри которого
+            String methodName = result.getMethod().getMethodName();
+            method = myClass.getMethod(methodName); // спрашиваем Java: "Как называется, метод внутри которого
             // ты сейчас выполняешь этот кусочек кода". Проще говоря - "Где я выполнился?"
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
